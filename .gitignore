@@ -21,3 +21,5 @@ data/
 # Large model files (optional)
 *.h5
 *.pt
+
+models/
