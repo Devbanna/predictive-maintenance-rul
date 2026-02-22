@@ -34,8 +34,12 @@ Key characteristics:
 - Sensor measurements and operating conditions  
 - Separate training and test sets  
 
-Dataset source:  
+Dataset source (original):  
 https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/
+
+Kaggle mirror used for download:  
+https://www.kaggle.com/datasets/behrad3d/nasa-cmaps
+
 
 ## Objectives
 
@@ -95,7 +99,97 @@ decision-making in real-world scenarios.
 
 ## Dashboard Preview
 
-![Dashboard](images/dashboard.png)
+### Main Interface
+![Main Dashboard](images/dashboard.png)
+
+### Real-Time Simulation
+![Simulation](images/simulation.png)
+
+### Failure Risk Meter
+![Risk Meter](images/risk_meter.png)
+
+### Feature Importance
+![Feature Importance](images/feature_importance.png)
+
+### Sensor Snapshot
+![Sensors](images/sensors.png)
+
+## Key Contributions
+
+This project extends a standard predictive maintenance workflow
+into a full decision-support system.
+
+Unique aspects include:
+
+- Real-time engine degradation simulation
+- Failure probability estimation
+- Interactive monitoring dashboard
+- Explainable feature importance visualization
+- Maintenance recommendation module
+- Support for user-uploaded sensor data
+
+## Design Decisions
+
+- Random Forest was chosen for its robustness to noise
+  and interpretability compared to deep learning models.
+
+- Streamlit was used to enable rapid development of an
+  interactive monitoring interface.
+
+- Failure probability was derived from predicted RUL to
+  provide actionable risk assessment.
+
+  ## Challenges Faced
+
+During the development and deployment of this project, several practical
+challenges were encountered:
+
+### Environment Setup and Dependency Issues
+- Installing and configuring the Python environment on macOS (Apple Silicon)
+  required careful package management.
+- Missing libraries (e.g., pandas, plotly, jupyter) caused runtime errors
+  that needed troubleshooting and installation within the correct environment.
+
+### Tool Compatibility
+- Ensuring compatibility between the training notebook and the deployment
+  environment was challenging, especially for package versions and paths.
+- Some libraries behaved differently across environments.
+
+### Model Persistence and Loading
+- Saving and loading the trained model required consistent preprocessing,
+  including scaling.
+- Incorrect file paths initially caused model loading failures in the
+  Streamlit dashboard.
+
+### Real-Time Simulation Implementation
+- Designing a realistic degradation simulation in Streamlit required managing
+  continuous updates without blocking the interface.
+- Balancing responsiveness and computational load was necessary to ensure
+  smooth visualization.
+
+### Failure Probability Design
+- Converting predicted RUL into an interpretable failure probability required
+  designing a heuristic mapping, as the dataset does not directly provide
+  probabilistic labels.
+
+### Data Handling and Feature Alignment
+- Ensuring that input features during inference exactly matched the training
+  features (order and scaling) was critical to avoid incorrect predictions.
+
+### Version Control and Deployment Issues
+- GitHub rejected large model files due to the 100 MB file size limit,
+  requiring removal of binaries and adoption of a reproducible workflow.
+- Authentication issues arose due to GitHub discontinuing password-based
+  Git operations, necessitating the use of Personal Access Tokens.
+
+### Reproducibility Considerations
+- To make the project portable, a requirements file and clear run
+  instructions were needed so that others can rebuild the environment
+  and regenerate the model.
+
+These challenges reflect real-world machine learning development,
+where integration, deployment, and usability issues are often as
+important as model performance.
 
 
 ## Requirements
@@ -119,12 +213,6 @@ Remaining Useful Life (RUL) was computed as:
 
 RUL = max_cycle − current_cycle
 
-## Challenges Faced
-
-- Handling multivariate time-series data  
-- Ensuring consistency between training and deployment pipelines  
-- Designing realistic failure probability estimation  
-- Implementing real-time simulation in Streamlit  
 
 ## Future Work
 
@@ -135,9 +223,26 @@ RUL = max_cycle − current_cycle
 
 ## Author Contribution
 
-This project was independently designed and implemented by me.
-Key contributions include data preprocessing, model development,
-evaluation, dashboard design, and deployment preparation.
+This project was independently designed and implemented by me as an
+end-to-end machine learning application.
+
+My contributions include:
+
+- Understanding the predictive maintenance problem and selecting an
+  appropriate dataset (NASA C-MAPSS)
+- Performing data preprocessing, feature engineering, and RUL computation
+- Designing and training the Random Forest regression model
+- Evaluating model performance using standard metrics (RMSE, MAE)
+- Developing an interactive dashboard using Streamlit
+- Implementing real-time degradation simulation for engine monitoring
+- Designing failure probability estimation and risk classification
+- Creating visualization modules including feature importance analysis
+- Implementing maintenance recommendations based on predicted risk
+- Structuring the project for reproducibility and deployment
+- Preparing documentation and usage instructions
+
+All components of this project, including data processing, model
+development, system design, and documentation, were completed independently.
 
 ## License
 
