@@ -1,6 +1,23 @@
+# Python
 __pycache__/
 *.pyc
-.env
+*.pyo
+*.pyd
+
+# Environment
+env/
+venv/
+.venv/
+
+# Jupyter
 .ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Data (optional — dataset usually not uploaded)
 data/
-models/
+
+# Large model files (optional)
+*.h5
+*.pt
