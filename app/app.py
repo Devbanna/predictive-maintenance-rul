@@ -7,14 +7,22 @@ import time
 import plotly.graph_objects as go
 import plotly.express as px
 
-# =========================================================
-# Load model safely
-# =========================================================
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-model = joblib.load(os.path.join(BASE_DIR, "models", "rf_rul_model.pkl"))
-scaler = joblib.load(os.path.join(BASE_DIR, "models", "scaler.pkl"))
+# Define the base path relative to this script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Correct path: Go up one level from 'app', then into 'models'
+model_path = os.path.join(BASE_DIR, "..", "models", "rf_rul_model.pkl")
+scaler_path = os.path.join(BASE_DIR, "..", "models", "scaler.pkl")
+
+# Load with safety check
+try:
+    model = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
+    st.success("Models loaded successfully! ✅")
+except FileNotFoundError:
+    st.error(f"Could not find model at {model_path}. Check your folder structure.")
 
 # =========================================================
 # Page config
