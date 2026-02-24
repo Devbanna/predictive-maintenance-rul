@@ -1,26 +1,34 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Environment
-env/
+# Virtual Environment
 venv/
 .venv/
+env/
+bin/
+lib/
+include/
 
-# Jupyter
-.ipynb_checkpoints/
+# Python Caching
+__pycache__/
+*.py[cod]
+*$py.class
 
-# macOS
+# System Files
 .DS_Store
+Thumbs.db
 
-# Data (optional — dataset usually not uploaded)
-data/
+# IDE Settings
+.vscode/
+.idea/
 
-# Large model files (optional)
-*.h5
-*.pt
+# Streamlit Local State
+.streamlit/
 
-models/
-*.pkl
+# --- IMPORTANT FOR YOUR MODELS ---
+# We want to make sure your .pkl files ARE NOT ignored 
+# so Streamlit Cloud can find them
+!models/*.pkl
+!models/rf_rul_model.pkl
+!models/scaler.pkl
+
+# Ignore large datasets but keep the models
+data/*
+!data/.gitkeep
