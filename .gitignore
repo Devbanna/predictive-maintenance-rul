@@ -6,6 +6,9 @@ bin/
 lib/
 include/
 
+*.pkl
+models/*.pkl
+
 # Python Caching
 __pycache__/
 *.py[cod]

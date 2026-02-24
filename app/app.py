@@ -6,21 +6,39 @@ import os
 import time
 import plotly.graph_objects as go
 import plotly.express as px
+import requests
 
-
-
+# =========================================================
+# Paths
+# =========================================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "rf_rul_model.pkl")
+SCALER_PATH = os.path.join(BASE_DIR, "..", "models", "scaler.pkl")
 
-if not os.path.exists(MODEL_PATH):
-    url = "YOUR_LINK"
-    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+MODEL_URL = "YOUR_MODEL_DOWNLOAD_LINK"
+SCALER_URL = "YOUR_SCALER_DOWNLOAD_LINK"
 
-    with open(MODEL_PATH, "wb") as f:
-        f.write(requests.get(url).content)
+# =========================================================
+# Auto-download models if missing
+# =========================================================
+
+def download_file(path, url):
+    if not os.path.exists(path):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "wb") as f:
+            f.write(requests.get(url).content)
+
+download_file(MODEL_PATH, MODEL_URL)
+download_file(SCALER_PATH, SCALER_URL)
+
+# =========================================================
+# Load artifacts
+# =========================================================
 
 model = joblib.load(MODEL_PATH)
+scaler = joblib.load(SCALER_PATH)
 
 # =========================================================
 # Page config
@@ -76,11 +94,10 @@ input_data.columns = [
 ]
 
 input_scaled = scaler.transform(input_data)
-
 prediction = model.predict(input_scaled)[0]
 
 # =========================================================
-# Failure probability (Upgrade 2)
+# Failure probability
 # =========================================================
 
 failure_prob = max(0, min(1, 1 - prediction / 300))
@@ -114,7 +131,7 @@ c3.metric("Health", status)
 c4.metric("Failure Risk", f"{failure_prob*100:.1f}%")
 
 # =========================================================
-# Upgrade 1 — Real-Time Monitoring
+# Live Monitoring
 # =========================================================
 
 st.subheader("🟢 Live Engine Monitoring")
@@ -163,7 +180,7 @@ if run:
         time.sleep(0.4)
 
 # =========================================================
-# Upgrade 2 — Risk Gauge
+# Risk Gauge
 # =========================================================
 
 st.subheader("⚠️ Failure Risk Meter")
@@ -186,7 +203,7 @@ gauge = go.Figure(go.Indicator(
 st.plotly_chart(gauge, use_container_width=True)
 
 # =========================================================
-# Upgrade 3 — Explainable AI Panel
+# Explainability
 # =========================================================
 
 st.subheader("🔍 Feature Contribution (Approximate)")
@@ -208,7 +225,7 @@ fig_imp = px.bar(
 st.plotly_chart(fig_imp, use_container_width=True)
 
 # =========================================================
-# Upgrade 4 — Upload Sensor File
+# Upload CSV
 # =========================================================
 
 st.subheader("📂 Upload Sensor Data")
@@ -222,7 +239,7 @@ if uploaded_file:
     st.write("Predicted RUL:", preds)
 
 # =========================================================
-# Upgrade 5 — Maintenance Recommendation
+# Maintenance Recommendation
 # =========================================================
 
 st.subheader("🛠️ Maintenance Recommendation")
