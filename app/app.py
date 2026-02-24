@@ -9,20 +9,20 @@ import plotly.express as px
 
 
 
-# Define the base path relative to this script
+
+# Define paths relative to app.py
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Move up one level from 'app/' to root, then into 'models/'
+MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "rf_rul_model.pkl")
+SCALER_PATH = os.path.join(BASE_DIR, "..", "models", "scaler.pkl")
 
-# Correct path: Go up one level from 'app', then into 'models'
-model_path = os.path.join(BASE_DIR, "..", "models", "rf_rul_model.pkl")
-scaler_path = os.path.join(BASE_DIR, "..", "models", "scaler.pkl")
-
-# Load with safety check
+# Load models with global fallback to prevent NameError
 try:
-    model = joblib.load(model_path)
-    scaler = joblib.load(scaler_path)
-    st.success("Models loaded successfully! ✅")
-except FileNotFoundError:
-    st.error(f"Could not find model at {model_path}. Check your folder structure.")
+    model = joblib.load(MODEL_PATH)
+    scaler = joblib.load(SCALER_PATH)
+except Exception as e:
+    st.error(f"Error loading models: {e}")
+    st.stop() # Stops execution if models aren't found
 
 # =========================================================
 # Page config
