@@ -195,17 +195,21 @@ important as model performance.
 ## Requirements
 
 Python 3.10+  
-See requirements.txt for the full list of dependencies.
 
-## How to Run
+### Installation
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Devbanna/predictive-maintenance-rul.git 
+   cd predictive-maintenance-rul
 
-1. Install dependencies:
+2. **Install Dependencies::**
+    ```bash
+    pip install -r requirements.txt
 
-   pip install -r requirements.txt
+3. **Run the Dashboard:**
+    '''bash
+    streamlit run app/app.py
 
-2. Launch dashboard:
-
-   streamlit run app/app.py
 
 ## RUL Definition
 
