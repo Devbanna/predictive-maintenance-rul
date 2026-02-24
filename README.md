@@ -207,7 +207,7 @@ Python 3.10+
     pip install -r requirements.txt
 
 3. **Run the Dashboard:**
-    '''bash
+    ```bash
     streamlit run app/app.py
 
 
