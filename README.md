@@ -202,7 +202,7 @@ Python 3.10+
    git clone https://github.com/Devbanna/predictive-maintenance-rul.git 
    cd predictive-maintenance-rul
 
-2. **Install Dependencies::**
+2. **Install Dependencies:**
     ```bash
     pip install -r requirements.txt
 
