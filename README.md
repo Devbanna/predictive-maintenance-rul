@@ -1,6 +1,6 @@
 # Predictive Maintenance of Aircraft Engines using Machine Learning
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://predictive-maintenance-rul-mfr9dvuznappkaahddxqp8s.streamlit.app/)
+
 
 ## Overview
 
